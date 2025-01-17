@@ -1,8 +1,13 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Rate-a-Game!";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="row">
+    <div class="col col-lg-6 mx-auto">
+        <h2 class="text-center">@ViewData["Title"]</h2>
+        <div class="mt-4 mb-4 flex-lg-row" style="display: flex; justify-content: space-between;">
+            <a asp-controller="Games" asp-action="Index" class="btn btn-secondary" style="width: 45%;">Games</a>
+            <a asp-controller="Developers" asp-action="Index" class="btn btn-secondary" style="width: 45%;">Developers</a>
+        </div>
+    </div>
 </div>
