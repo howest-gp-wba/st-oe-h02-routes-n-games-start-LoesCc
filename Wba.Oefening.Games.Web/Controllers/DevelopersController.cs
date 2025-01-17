@@ -23,5 +23,15 @@ namespace Wba.Oefening.Games.Web.Controllers
             sb.AppendLine("</div>");
             return sb.ToString();
         }
+
+        private string FormatDeveloperInfo(IEnumerable<Developer> developers)
+        {
+            string developerInfo = string.Empty;
+            foreach (Developer dev in developers)
+            {
+                developerInfo += $"{FormatDeveloperInfo(dev)}\n";
+            }
+            return developerInfo;
+        }
     }
 }
