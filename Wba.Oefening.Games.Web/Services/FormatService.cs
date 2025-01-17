@@ -30,5 +30,28 @@ namespace Wba.Oefening.Games.Web.Services
             }
             return gameInfo;
         }
+
+        public string FormatDeveloperInfo(Developer developer)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<div>");
+            sb.AppendLine("<h3>Developer info</h3>");
+            sb.AppendLine("<ul>");
+            sb.AppendLine($"<li>Developer Id: {developer?.Id ?? 0}</li>");
+            sb.AppendLine($"<li>Name: {developer?.Name ?? "<unknown>"}</li>");
+            sb.AppendLine("</ul>");
+            sb.AppendLine("</div>");
+            return sb.ToString();
+        }
+
+        public string FormatDeveloperInfo(IEnumerable<Developer> developers)
+        {
+            string developerInfo = string.Empty;
+            foreach (Developer dev in developers)
+            {
+                developerInfo += $"{FormatDeveloperInfo(dev)}\n";
+            }
+            return developerInfo;
+        }
     }
 }

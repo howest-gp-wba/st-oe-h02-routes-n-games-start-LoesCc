@@ -6,5 +6,7 @@ namespace Wba.Oefening.Games.Web.Services.Interfaces
     {
         string FormatGameInfo(Game game);
         string FormatGameInfo(IEnumerable<Game> games);
+        string FormatDeveloperInfo(Developer developer);
+        string FormatDeveloperInfo(IEnumerable<Developer> developers);
     }
 }
