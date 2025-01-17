@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Wba.Oefening.Games.Core\Wba.Oefening.Games.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
