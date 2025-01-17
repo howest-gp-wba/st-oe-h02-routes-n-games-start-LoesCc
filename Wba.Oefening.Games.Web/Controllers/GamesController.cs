@@ -3,15 +3,18 @@ using System.Text;
 using Wba.Oefening.Games.Core.Entities;
 using Wba.Oefening.Games.Core.Repositories;
 using Wba.Oefening.Games.Web.Services;
+using Wba.Oefening.Games.Web.Services.Interfaces;
 
 namespace Wba.Oefening.Games.Web.Controllers
 {
     public class GamesController : Controller
     {
         private readonly GameRepository _gameRepository;
+        private readonly IFormatService _formatService;
 
-        public GamesController()
-        {
+        public GamesController(IFormatService formatService)
+        {            
+            _formatService = formatService;
             _gameRepository = new GameRepository();
         }
 
@@ -20,7 +23,7 @@ namespace Wba.Oefening.Games.Web.Controllers
             //get the games
             IEnumerable<Game> games = _gameRepository.GetGames();
             //pass to the Format method
-            string gameInfo = $"<h1>Games page</h1>\n{FormatGameInfo(games)}";
+            string gameInfo = $"<h1>Games page</h1>\n{_formatService.FormatGameInfo(games)}";
             //and return to the client
             return Content(gameInfo, "text/html");
         }
@@ -31,33 +34,8 @@ namespace Wba.Oefening.Games.Web.Controllers
                 .FirstOrDefault(game => game.Id == id);
             if (gameToShow == null) return RedirectToAction("Index");
 
-            string gameInfo = FormatGameInfo(gameToShow);
+            string gameInfo = _formatService.FormatGameInfo(gameToShow);
             return Content(gameInfo, "text/html");
-        }
-
-        private string FormatGameInfo(Game game)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<div>");
-            sb.AppendLine("<h3>Game info</h3>");
-            sb.AppendLine("<ul>");
-            sb.AppendLine($"<li>Game Id: {game?.Id ?? 0}</li>");
-            sb.AppendLine($"<li>Title: {game?.Title ?? "<unknown>"}</li>");
-            sb.AppendLine($"<li>Developer: {game?.Developer?.Name ?? "<unknown>"}</li>");
-            sb.AppendLine($"<li>Rating: {game?.Rating ?? 0}</li>");
-            sb.AppendLine("</ul>");
-            sb.AppendLine("</div>");
-            return sb.ToString();
-        }
-
-        private string FormatGameInfo(IEnumerable<Game> games)
-        {
-            string gameInfo = string.Empty;
-            foreach (Game game in games)
-            {
-                gameInfo += $"{FormatGameInfo(game)}\n";
-            }
-            return gameInfo;
         }
     }
 }

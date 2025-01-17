@@ -1,7 +1,11 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using Wba.Oefening.Games.Web.Services;
+using Wba.Oefening.Games.Web.Services.Interfaces;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IFormatService, FormatService>();
 
 var app = builder.Build();
 
