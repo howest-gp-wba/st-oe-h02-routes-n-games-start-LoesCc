@@ -21,14 +21,24 @@ app.UseRouting();
 app.UseAuthorization();
 //Add custom routing here
 app.MapControllerRoute(
+    name: "ShowGame",
+    pattern: "/Games/{id:int}",
+    defaults: new { Controller = "Games", Action = "ShowGame" }
+    );
+app.MapControllerRoute(
     name: "ShowAllGames",
     pattern: "/Games/All",
     defaults: new {Controller = "Games", Action = "Index" }
     );
 app.MapControllerRoute(
-    name: "ShowGame",
-    pattern: "/Games/{id:int}",
-    defaults: new { Controller = "Games", Action = "ShowGame" }
+    name: "ShowDeveloper",
+    pattern: "/Developers/{id:int}",
+    defaults: new { Controller = "Developers", Action = "ShowDeveloper" }
+    );
+app.MapControllerRoute(
+    name: "ShowAllDeveloper",
+    pattern: "/Developers/All",
+    defaults: new { Controller = "Developers", Action = "Index" }
     );
 app.MapControllerRoute(
     name: "default",
