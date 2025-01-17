@@ -1,14 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using Wba.Oefening.Games.Core.Entities;
+using Wba.Oefening.Games.Core.Repositories;
 
 namespace Wba.Oefening.Games.Web.Controllers
 {
     public class DevelopersController : Controller
     {
+        private readonly DeveloperRepository _developerRepository;
+
+        public DevelopersController()
+        {
+            _developerRepository = new DeveloperRepository();
+        }
+
         public IActionResult Index()
         {
-            return View();
+            //get the developers
+            IEnumerable<Developer> developers = _developerRepository.GetDevelopers();
+            //pass to the Format method
+            string devInfo = $"<h1>Developers page</h1>\n{FormatDeveloperInfo(developers)}";
+            //and return to the client
+            return Content(devInfo, "text/html");
         }
 
         private string FormatDeveloperInfo(Developer developer)
