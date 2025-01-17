@@ -15,25 +15,6 @@ namespace Wba.Oefening.Games.Web.Controllers
             _gameRepository = new GameRepository();
         }
 
-        /**
-         * show the info of one game
-         */
-        public IActionResult ShowGame2(int id)
-        {
-            //get the game using the id(FirstOrDefault)
-            var game = _gameRepository
-                .GetGames()
-                .FirstOrDefault(g => g.Id == id);
-            //check if null
-            if (game == null)
-            {
-                return NotFound();
-            }
-            //return content => FormatGameInfo(Game)
-            var title = game.Title;
-            return Content("_formatService.FormatGameInfo(game)", "text/html");
-        }
-
         public IActionResult Index()
         {
             //get the games
