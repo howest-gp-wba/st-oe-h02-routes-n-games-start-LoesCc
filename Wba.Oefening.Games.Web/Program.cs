@@ -21,8 +21,8 @@ app.UseRouting();
 app.UseAuthorization();
 //Add custom routing here
 app.MapControllerRoute(
-    name: "Showgames",
-    pattern: "games/all",
+    name: "ShowAllGames",
+    pattern: "/Games/All",
     defaults: new {Controller = "Games", Action = "Index" }
     );
 app.MapControllerRoute(

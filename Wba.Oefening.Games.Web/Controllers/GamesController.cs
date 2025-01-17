@@ -9,12 +9,10 @@ namespace Wba.Oefening.Games.Web.Controllers
     public class GamesController : Controller
     {
         private readonly GameRepository _gameRepository;
-        private readonly FormatService _formatService;
 
         public GamesController()
         {
             _gameRepository = new GameRepository();
-            _formatService = new FormatService();
         }
 
         /**
@@ -33,21 +31,23 @@ namespace Wba.Oefening.Games.Web.Controllers
             }
             //return content => FormatGameInfo(Game)
             var title = game.Title;
-            return Content(_formatService.FormatGameInfo(game), "text/html");
+            return Content("_formatService.FormatGameInfo(game)", "text/html");
         }
 
         public IActionResult Index()
         {
             //get the games
-            var games = _gameRepository.GetGames();
+            IEnumerable<Game> games = _gameRepository.GetGames();
             //pass to the Format method
+            string gameInfo = $"<h1>Games page</h1>\n{FormatGameInfo(games)}";
             //and return to the client
-            return Content(_formatService.FormatGameInfo(games), "text/html");
+            return Content(gameInfo, "text/html");
         }
 
         private string FormatGameInfo(Game game)
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine("<div>");
             sb.AppendLine("<h3>Game info</h3>");
             sb.AppendLine("<ul>");
             sb.AppendLine($"<li>Game Id: {game?.Id ?? 0}</li>");
@@ -55,6 +55,7 @@ namespace Wba.Oefening.Games.Web.Controllers
             sb.AppendLine($"<li>Developer: {game?.Developer?.Name ?? "<unknown>"}</li>");
             sb.AppendLine($"<li>Rating: {game?.Rating ?? 0}</li>");
             sb.AppendLine("</ul>");
+            sb.AppendLine("</div>");
             return sb.ToString();
         }
 
