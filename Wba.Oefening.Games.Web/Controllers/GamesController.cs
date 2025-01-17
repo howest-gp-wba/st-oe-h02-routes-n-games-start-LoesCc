@@ -50,10 +50,10 @@ namespace Wba.Oefening.Games.Web.Controllers
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("<h3>Game info</h3>");
             sb.AppendLine("<ul>");
-            sb.AppendLine($"<li>Game Id: {game.Id}</li>");
-            sb.AppendLine($"<li>Title: {game.Title}</li>");
-            sb.AppendLine($"<li>Developer: {game.Developer.Name}</li>");
-            sb.AppendLine($"<li>Rating: {game.Rating.ToString()}</li>");
+            sb.AppendLine($"<li>Game Id: {game?.Id ?? 0}</li>");
+            sb.AppendLine($"<li>Title: {game?.Title ?? "<unknown>"}</li>");
+            sb.AppendLine($"<li>Developer: {game?.Developer?.Name ?? "<unknown>"}</li>");
+            sb.AppendLine($"<li>Rating: {game?.Rating ?? 0}</li>");
             sb.AppendLine("</ul>");
             return sb.ToString();
         }
