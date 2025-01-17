@@ -48,7 +48,7 @@ namespace Wba.Oefening.Games.Web.Controllers
         private string FormatGameInfo(Game game)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<strong>Game info</strong>");
+            sb.AppendLine("<h3>Game info</h3>");
             sb.AppendLine("<ul>");
             sb.AppendLine($"<li>Game Id: {game.Id}</li>");
             sb.AppendLine($"<li>Title: {game.Title}</li>");
@@ -56,6 +56,16 @@ namespace Wba.Oefening.Games.Web.Controllers
             sb.AppendLine($"<li>Rating: {game.Rating.ToString()}</li>");
             sb.AppendLine("</ul>");
             return sb.ToString();
+        }
+
+        private string FormatGameInfo(IEnumerable<Game> games)
+        {
+            string gameInfo = string.Empty;
+            foreach (Game game in games)
+            {
+                gameInfo += $"{FormatGameInfo(game)}\n";
+            }
+            return gameInfo;
         }
     }
 }
