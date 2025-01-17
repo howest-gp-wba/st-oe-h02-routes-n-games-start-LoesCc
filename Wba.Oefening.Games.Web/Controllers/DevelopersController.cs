@@ -2,15 +2,18 @@
 using System.Text;
 using Wba.Oefening.Games.Core.Entities;
 using Wba.Oefening.Games.Core.Repositories;
+using Wba.Oefening.Games.Web.Services.Interfaces;
 
 namespace Wba.Oefening.Games.Web.Controllers
 {
     public class DevelopersController : Controller
     {
         private readonly DeveloperRepository _developerRepository;
+        private readonly IFormatService _formatService;
 
-        public DevelopersController()
+        public DevelopersController(IFormatService formatService)
         {
+            _formatService = formatService;
             _developerRepository = new DeveloperRepository();
         }
 
@@ -19,7 +22,7 @@ namespace Wba.Oefening.Games.Web.Controllers
             //get the developers
             IEnumerable<Developer> developers = _developerRepository.GetDevelopers();
             //pass to the Format method
-            string devInfo = $"<h1>Developers page</h1>\n{FormatDeveloperInfo(developers)}";
+            string devInfo = $"<h1>Developers page</h1>\n{_formatService.FormatDeveloperInfo(developers)}";
             //and return to the client
             return Content(devInfo, "text/html");
         }
@@ -30,31 +33,8 @@ namespace Wba.Oefening.Games.Web.Controllers
                 .FirstOrDefault(dev => dev.Id == id);
             if (developerToShow == null) return RedirectToAction("Index");
 
-            string devInfo = FormatDeveloperInfo(developerToShow);
+            string devInfo = _formatService.FormatDeveloperInfo(developerToShow);
             return Content(devInfo, "text/html");
-        }
-
-        private string FormatDeveloperInfo(Developer developer)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine("<div>");
-            sb.AppendLine("<h3>Developer info</h3>");
-            sb.AppendLine("<ul>");
-            sb.AppendLine($"<li>Developer Id: {developer?.Id ?? 0}</li>");
-            sb.AppendLine($"<li>Name: {developer?.Name ?? "<unknown>"}</li>");
-            sb.AppendLine("</ul>");
-            sb.AppendLine("</div>");
-            return sb.ToString();
-        }
-
-        private string FormatDeveloperInfo(IEnumerable<Developer> developers)
-        {
-            string developerInfo = string.Empty;
-            foreach (Developer dev in developers)
-            {
-                developerInfo += $"{FormatDeveloperInfo(dev)}\n";
-            }
-            return developerInfo;
         }
     }
 }
