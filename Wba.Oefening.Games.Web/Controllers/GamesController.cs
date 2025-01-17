@@ -18,7 +18,7 @@ namespace Wba.Oefening.Games.Web.Controllers
         /**
          * show the info of one game
          */
-        public IActionResult ShowGame(int id)
+        public IActionResult ShowGame2(int id)
         {
             //get the game using the id(FirstOrDefault)
             var game = _gameRepository
@@ -41,6 +41,16 @@ namespace Wba.Oefening.Games.Web.Controllers
             //pass to the Format method
             string gameInfo = $"<h1>Games page</h1>\n{FormatGameInfo(games)}";
             //and return to the client
+            return Content(gameInfo, "text/html");
+        }
+
+        public IActionResult ShowGame(int id)
+        {        
+            Game gameToShow = _gameRepository.GetGames()
+                .FirstOrDefault(game => game.Id == id);
+            if (gameToShow == null) return RedirectToAction("Index");
+
+            string gameInfo = FormatGameInfo(gameToShow);
             return Content(gameInfo, "text/html");
         }
 
