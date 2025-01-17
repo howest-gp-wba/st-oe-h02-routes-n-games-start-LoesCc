@@ -1,6 +1,6 @@
 ﻿using Wba.Oefening.Games.Core.Entities;
 
-namespace Wba.Oefening.Games.Web.Services
+namespace Wba.Oefening.Games.Web.Services.Interfaces
 {
     public interface IFormatService
     {
